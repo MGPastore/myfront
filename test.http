@@ -1,7 +1,8 @@
+
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "username": "admin",
+  "username": "maxi",
   "password": "admin"
 }

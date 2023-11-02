@@ -10,4 +10,8 @@ router.get('/dashboard', authenticateToken, (req, res) => {
   res.json({ message: 'Bienvenido al panel de control' });
 });
 
+router.get('/', function(req, res) {
+  res.render('login');
+});
+
 module.exports = router;

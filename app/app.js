@@ -3,13 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const mongoose = require('mongoose');
+var { connectToDatabase }=require("./db.js")
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 
 const mongoURI = 'mongodb://localhost:27017/nombre-de-tu-base-de-datos'; // Reemplaza "nombre-de-tu-base-de-datos" con el nombre de tu base de datos
-const port = 3000
+const port = 8080
 var app = express();
 
 // view engine setup
@@ -46,21 +46,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`)
-  // Conectar a la base de datos MongoDB utilizando Mongoose
-// Conectar a la base de datos MongoDB utilizando Mongoose
-mongoose.connect(mongoURI);
-
-const db = mongoose.connection;
-
-db.on('error', (err) => {
-  console.error('Error de conexión a la base de datos:', err);
-});
-
-db.once('open', () => {
-  console.log('Conexión exitosa a la base de datos MongoDB');
-});
+  await connectToDatabase()
 })
 
 module.exports = app;
